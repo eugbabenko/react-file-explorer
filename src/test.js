@@ -2,7 +2,7 @@ import { Dropbox } from 'dropbox';
 
 const dbx = new Dropbox({
     accessToken:
-        'sl.BqeKDV07TCdiEBSkN0m_QCfTBeEaZSQE_VgVQAE7O8B2zrlD4XkxHrmxQacbWlRvX73Co3Q_JA93tcDvsaIO9pYrphb931D9G8gfqqTnZ20PCJfbb8hweEO90sdA9Dpx8cJw9bpu3iyY',
+        'sl.BqjRsD19gEUQVeQYnFlnY4ybsEFhTHNrEJUI6wABaWWCP8M4RxtvwBIgpKDlE4rm2cjPVJ8pR5GEpTy192VgqjS2B0II0UAnd6xZ6izQlOZM3Jc-g-07tjncdnne7hioYPpIls8iMTcs',
     fetch,
 });
 

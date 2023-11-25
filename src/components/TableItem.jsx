@@ -1,12 +1,14 @@
 import { Tbody, Td, Tr } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 
-import data from '../../test.json';
 import ItemActionsBtn from './ItemActionsBtn';
 
 const TableItem = () => {
+    const items = useSelector((state) => state.fetchReducer.items);
+    console.log(items);
     return (
         <>
-            {data.entries.map((item) => {
+            {items.map((item) => {
                 return (
                     <Tbody key={item.name}>
                         <Tr>
