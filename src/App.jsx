@@ -3,6 +3,7 @@ import { SearchIcon } from '@chakra-ui/icons';
 
 import './App.css';
 import Toolbar from './components/Toolbar';
+import TableFiles from './components/TableFiles';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Input type="text" placeholder="Search" />
             </InputGroup>
             <Toolbar />
+            <TableFiles />
         </>
     );
 }

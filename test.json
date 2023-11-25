@@ -1,0 +1,33 @@
+{
+    "entries": [
+        {
+            ".tag": "folder",
+            "name": "First  Folder",
+            "path_lower": "/test folder/first  folder",
+            "path_display": "/Test folder/First  Folder",
+            "id": "id:fM39UyjDWU4AAAAAAAAAEQ"
+        },
+        {
+            ".tag": "folder",
+            "name": "Second Folder",
+            "path_lower": "/test folder/second folder",
+            "path_display": "/Test folder/Second Folder",
+            "id": "id:fM39UyjDWU4AAAAAAAAAEg"
+        },
+        {
+            ".tag": "file",
+            "name": "Lorem.docx",
+            "path_lower": "/test folder/lorem.docx",
+            "path_display": "/Test folder/Lorem.docx",
+            "id": "id:fM39UyjDWU4AAAAAAAAAEw",
+            "client_modified": "2023-11-24T08:07:45Z",
+            "server_modified": "2023-11-24T08:17:16Z",
+            "rev": "0160ae1949344680000000117ea18c1",
+            "size": 9352,
+            "is_downloadable": true,
+            "content_hash": "0cb0fabfc9bf00e5133355e99ded4eec81f69aa293b9588d74b65eb935fdefda"
+        }
+    ],
+    "cursor": "AAGuq0ZpTebR5zA88W4KrABCmlm-i5wuokujOdMv_W_Tjd_qoRzHWask89vhrKkXXHY7UMbqE8-tpCS5WC_OxEVKpxRSwg-mck-Rtd8spBD8sXutoQ6wiXQ1YKPbQYZOBO_B0w0J6MiJIt-zC6wv1CHbU0tIRyZQHSMI2oyr1ZmhI-YnI90w0IBtrU4ivHtXQRfnkfTZlhSzV2MYX2q8qqQ-",
+    "has_more": false
+}
