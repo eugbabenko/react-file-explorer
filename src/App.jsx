@@ -7,16 +7,17 @@ import TableFiles from './components/TableFiles';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useEffect } from 'react';
-import { fetchFilesAsync } from './redux/fetchItemsSlice';
+import { fetchItemsFromDbx } from './redux/fetchItemsSlice';
 import PathBreadcrumb from './components/PathBreadcrumb';
 
 function App() {
     const dispatch = useDispatch();
     const path = useSelector((state) => state.pathSlice.path);
+    const update = useSelector((state) => state.updateFilesSlice.update);
 
     useEffect(() => {
-        dispatch(fetchFilesAsync(path));
-    }, [path]);
+        dispatch(fetchItemsFromDbx(path));
+    }, [path, update]);
 
     return (
         <>

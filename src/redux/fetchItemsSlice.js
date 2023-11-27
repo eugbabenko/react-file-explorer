@@ -1,12 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Dropbox } from 'dropbox';
 
-const fetch = window.fetch.bind(window);
-
-const dbx = new Dropbox({
-    accessToken: import.meta.env.VITE_APP_ACCESS_TOKEN,
-    fetch,
-});
+import dbx from '../utils/dropbox-setup';
 
 const initialState = {
     items: [],
@@ -14,7 +8,7 @@ const initialState = {
     error: null,
 };
 
-export const fetchFilesAsync = createAsyncThunk('items/fetchItems', async (path) => {
+export const fetchItemsFromDbx = createAsyncThunk('items/fetchItems', async (path) => {
     try {
         const response = await dbx.filesListFolder({ path: path });
         const data = response.result.entries;
@@ -24,20 +18,20 @@ export const fetchFilesAsync = createAsyncThunk('items/fetchItems', async (path)
     }
 });
 
-const fetchSlice = createSlice({
+const fetchReducer = createSlice({
     name: 'items',
     initialState,
     extraReducers: (builder) => {
         builder
-            .addCase(fetchFilesAsync.pending, (state) => {
+            .addCase(fetchItemsFromDbx.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(fetchFilesAsync.fulfilled, (state, action) => {
+            .addCase(fetchItemsFromDbx.fulfilled, (state, action) => {
                 state.loading = false;
                 state.items = action.payload;
                 state.error = null;
             })
-            .addCase(fetchFilesAsync.rejected, (state, action) => {
+            .addCase(fetchItemsFromDbx.rejected, (state, action) => {
                 state.loading = false;
                 state.items = [];
                 state.error = action.error.message;
@@ -45,4 +39,4 @@ const fetchSlice = createSlice({
     },
 });
 
-export default fetchSlice.reducer;
+export default fetchReducer.reducer;

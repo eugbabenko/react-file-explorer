@@ -22,12 +22,24 @@ import {
 } from '@chakra-ui/react';
 import { AiFillFileAdd, AiFillFolder, AiFillFolderAdd, AiOutlineUpload } from 'react-icons/ai';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createFolder } from '../redux/createFolderSlice';
+import { updateFiles } from '../redux/updateItemsSlice';
 
 const Toolbar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const initialRef = useRef(null);
-    const finalRef = useRef(null);
+    const [folderName, setFolderName] = useState('');
+
+    const dispatch = useDispatch();
+    const path = useSelector((state) => state.pathSlice.path);
+
+    const handleCreateFolder = async () => {
+        await dispatch(createFolder({ path, folderName }));
+        dispatch(updateFiles());
+        onClose();
+    };
 
     return (
         <>
@@ -54,19 +66,19 @@ const Toolbar = () => {
                     <Button leftIcon={<AiFillFolderAdd />} onClick={onOpen}>
                         Create Folder
                     </Button>
-                    <Modal initialFocusRef={initialRef} finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
+                    <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
                         <ModalContent>
                             <ModalHeader>Create folder</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody pb={6}>
-                                <FormControl>
+                                <FormControl isRequired>
                                     <FormLabel>Name</FormLabel>
-                                    <Input ref={initialRef} placeholder="Folder Name" />
+                                    <Input ref={initialRef} required placeholder="Folder Name" onChange={(e) => setFolderName(e.target.value)} />
                                 </FormControl>
                             </ModalBody>
                             <ModalFooter>
-                                <Button colorScheme="blue" mr={3}>
+                                <Button isDisabled={!folderName} onClick={handleCreateFolder} colorScheme="blue" mr={3}>
                                     Save
                                 </Button>
                                 <Button onClick={onClose}>Cancel</Button>
