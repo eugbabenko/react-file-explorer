@@ -26,6 +26,7 @@ import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createFolder } from '../redux/createFolderSlice';
 import { updateFiles } from '../redux/updateItemsSlice';
+import { uploadFile } from '../redux/uploadFileSlice';
 
 const Toolbar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,6 +40,13 @@ const Toolbar = () => {
         await dispatch(createFolder({ path, folderName }));
         dispatch(updateFiles());
         onClose();
+    };
+
+    const handleFileChanged = async (e) => {
+        const file = e.target.files[0];
+        const filePath = `${path}/${file.name}`;
+        await dispatch(uploadFile({ path: filePath, file }));
+        dispatch(updateFiles());
     };
 
     return (
@@ -55,12 +63,15 @@ const Toolbar = () => {
                         </MenuGroup>
                         <MenuDivider />
                         <MenuGroup title="Add">
-                            <MenuItem icon={<AiOutlineUpload />}>Upload</MenuItem>
+                            <MenuItem type="file" icon={<AiOutlineUpload />}>
+                                Upload
+                            </MenuItem>
                         </MenuGroup>
                     </MenuList>
                 </Menu>
-                <Button leftIcon={<AiOutlineUpload />} colorScheme="blue">
+                <Button as="label" leftIcon={<AiOutlineUpload />} colorScheme="blue">
                     Upload
+                    <input type="file" hidden onChange={handleFileChanged} />
                 </Button>
                 <>
                     <Button leftIcon={<AiFillFolderAdd />} onClick={onOpen}>

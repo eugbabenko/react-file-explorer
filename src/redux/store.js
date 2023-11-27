@@ -3,6 +3,7 @@ import fetchReducer from './fetchItemsSlice';
 import createFolderReducer from './createFolderSlice';
 import updateFilesSlice from './updateItemsSlice';
 import deleteItemSlice from './deleteItemSlice';
+import uploadFileSlice from './uploadFileSlice';
 import pathSlice from './pathSlice';
 
 const reducer = combineReducers({
@@ -11,6 +12,7 @@ const reducer = combineReducers({
     createFolderReducer,
     updateFilesSlice,
     deleteItemSlice,
+    uploadFileSlice,
 });
 
 export const store = configureStore({
