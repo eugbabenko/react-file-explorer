@@ -7,10 +7,7 @@ import { useDispatch } from 'react-redux';
 
 const TableItem = () => {
     const items = useSelector((state) => state.fetchReducer.items);
-    const path = useSelector((state) => state.pathSlice.path);
     const dispatch = useDispatch();
-    console.log(items);
-    console.log(path);
 
     const openItem = (item, event) => {
         const isTdElement = event.target.tagName.toLowerCase() === 'td';
@@ -28,7 +25,7 @@ const TableItem = () => {
                             <Td>{item.name}</Td>
                             <Td>{item?.client_modified ? item?.client_modified : '--'}</Td>
                             <Td>
-                                <ItemActionsBtn />
+                                <ItemActionsBtn itemPath={item.path_lower} />
                             </Td>
                         </Tr>
                     </Tbody>

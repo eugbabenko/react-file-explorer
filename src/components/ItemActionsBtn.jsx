@@ -2,7 +2,18 @@ import { AddIcon, EditIcon, ExternalLinkIcon, RepeatIcon } from '@chakra-ui/icon
 import { Divider, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { AiOutlineMore } from 'react-icons/ai';
 
-const ItemActionsBtn = () => {
+import { useDispatch } from 'react-redux';
+import { deleteItem } from '../redux/deleteItemSlice';
+import { updateFiles } from '../redux/updateItemsSlice';
+
+const ItemActionsBtn = ({ itemPath }) => {
+    const dispatch = useDispatch();
+
+    const handleDeleteItem = async () => {
+        await dispatch(deleteItem(itemPath));
+        dispatch(updateFiles());
+    };
+
     return (
         <Menu>
             <MenuButton as={IconButton} aria-label="Options" icon={<AiOutlineMore />} variant="outline" />
@@ -12,7 +23,9 @@ const ItemActionsBtn = () => {
                 <MenuItem icon={<RepeatIcon />}>Copy Link</MenuItem>
                 <MenuItem icon={<EditIcon />}>Download</MenuItem>
                 <Divider />
-                <MenuItem icon={<AddIcon />}>Delete</MenuItem>
+                <MenuItem onClick={handleDeleteItem} icon={<AddIcon />}>
+                    Delete
+                </MenuItem>
                 <MenuItem icon={<AddIcon />}>Rename</MenuItem>
                 <MenuItem icon={<AddIcon />}>Move</MenuItem>
                 <MenuItem icon={<AddIcon />}>Copy</MenuItem>

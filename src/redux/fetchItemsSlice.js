@@ -8,7 +8,7 @@ const initialState = {
     error: null,
 };
 
-export const fetchItemsFromDbx = createAsyncThunk('items/fetchItems', async (path) => {
+export const fetchItemsFromDbx = createAsyncThunk('dropbox/fetchItems', async (path) => {
     try {
         const response = await dbx.filesListFolder({ path: path });
         const data = response.result.entries;
@@ -19,7 +19,7 @@ export const fetchItemsFromDbx = createAsyncThunk('items/fetchItems', async (pat
 });
 
 const fetchReducer = createSlice({
-    name: 'items',
+    name: 'dropbox',
     initialState,
     extraReducers: (builder) => {
         builder
