@@ -4,6 +4,8 @@ import createFolderReducer from './createFolderSlice';
 import updateFilesSlice from './updateItemsSlice';
 import deleteItemSlice from './deleteItemSlice';
 import uploadFileSlice from './uploadFileSlice';
+import downloadItemSlice from './downloadItemSlice';
+import getSharingLinkSlice from './getSharingLinkSlice';
 import pathSlice from './pathSlice';
 
 const reducer = combineReducers({
@@ -13,6 +15,8 @@ const reducer = combineReducers({
     updateFilesSlice,
     deleteItemSlice,
     uploadFileSlice,
+    downloadItemSlice,
+    getSharingLinkSlice,
 });
 
 export const store = configureStore({

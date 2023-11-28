@@ -19,6 +19,7 @@ import {
     ModalHeader,
     ModalOverlay,
     useDisclosure,
+    useToast,
 } from '@chakra-ui/react';
 import { AiFillFileAdd, AiFillFolder, AiFillFolderAdd, AiOutlineUpload } from 'react-icons/ai';
 
@@ -35,17 +36,52 @@ const Toolbar = () => {
 
     const dispatch = useDispatch();
     const path = useSelector((state) => state.pathSlice.path);
+    const toast = useToast();
 
     const handleCreateFolder = async () => {
-        await dispatch(createFolder({ path, folderName }));
+        await dispatch(createFolder({ path, folderName })).then((response) => {
+            if (response.payload.status === 'error') {
+                toast({
+                    title: 'Error creating folder',
+                    description: response.payload.error,
+                    status: 'error',
+                    duration: 4000,
+                    isClosable: true,
+                });
+            } else {
+                toast({
+                    title: 'Folder created',
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                });
+            }
+        });
         dispatch(updateFiles());
         onClose();
     };
 
-    const handleFileChanged = async (e) => {
+    const handleFileUpload = async (e) => {
         const file = e.target.files[0];
         const filePath = `${path}/${file.name}`;
-        await dispatch(uploadFile({ path: filePath, file }));
+        await dispatch(uploadFile({ path: filePath, file })).then((response) => {
+            if (response.payload.status === 'error') {
+                toast({
+                    title: 'Error uploading item',
+                    description: response.payload.error,
+                    status: 'error',
+                    duration: 4000,
+                    isClosable: true,
+                });
+            } else {
+                toast({
+                    title: 'Item uploaded',
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                });
+            }
+        });
         dispatch(updateFiles());
     };
 
@@ -71,7 +107,7 @@ const Toolbar = () => {
                 </Menu>
                 <Button as="label" leftIcon={<AiOutlineUpload />} colorScheme="blue">
                     Upload
-                    <input type="file" hidden onChange={handleFileChanged} />
+                    <input type="file" hidden onChange={handleFileUpload} />
                 </Button>
                 <>
                     <Button leftIcon={<AiFillFolderAdd />} onClick={onOpen}>

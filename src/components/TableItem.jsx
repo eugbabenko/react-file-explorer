@@ -1,13 +1,20 @@
-import { Tbody, Td, Tr } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+
+import { Tbody, Td, Tr, useToast } from '@chakra-ui/react';
+
+import { setPath } from '../redux/pathSlice';
+import { fetchItemsFromDbx } from '../redux/fetchItemsSlice';
 
 import ItemActionsBtn from './ItemActionsBtn';
-import { setPath } from '../redux/pathSlice';
-import { useDispatch } from 'react-redux';
 
 const TableItem = () => {
-    const items = useSelector((state) => state.fetchReducer.items);
+    const { items } = useSelector((state) => state.fetchReducer);
+    const path = useSelector((state) => state.pathSlice.path);
+    const update = useSelector((state) => state.updateFilesSlice.update);
+
     const dispatch = useDispatch();
+    const toast = useToast();
 
     const openItem = (item, event) => {
         const isTdElement = event.target.tagName.toLowerCase() === 'td';
@@ -16,21 +23,33 @@ const TableItem = () => {
         }
     };
 
+    useEffect(() => {
+        dispatch(fetchItemsFromDbx(path)).then((response) => {
+            if (response.error) {
+                toast({
+                    title: 'Error fetching items',
+                    description: response.error.message,
+                    status: 'error',
+                    duration: 2000,
+                    isClosable: true,
+                });
+            }
+        });
+    }, [path, update]);
+
     return (
         <>
-            {items.map((item) => {
-                return (
-                    <Tbody key={item.name}>
-                        <Tr onClick={(event) => openItem(item, event)}>
-                            <Td>{item.name}</Td>
-                            <Td>{item?.client_modified ? item?.client_modified : '--'}</Td>
-                            <Td>
-                                <ItemActionsBtn itemPath={item.path_lower} />
-                            </Td>
-                        </Tr>
-                    </Tbody>
-                );
-            })}
+            {items.map((item) => (
+                <Tbody key={item.name}>
+                    <Tr onClick={(event) => openItem(item, event)}>
+                        <Td>{item.name}</Td>
+                        <Td>{item?.client_modified ? item?.client_modified : '--'}</Td>
+                        <Td>
+                            <ItemActionsBtn itemPath={item.path_lower} />
+                        </Td>
+                    </Tr>
+                </Tbody>
+            ))}
         </>
     );
 };

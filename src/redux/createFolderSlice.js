@@ -7,13 +7,18 @@ export const createFolder = createAsyncThunk('dropbox/createFolder', async ({ pa
         const response = await dbx.filesCreateFolderV2({
             path: `${path}/${folderName}`,
         });
+
         const serializedResponse = {
             status: response.status,
             result: response.result,
         };
         return serializedResponse;
     } catch (error) {
-        return rejectWithValue(error);
+        return rejectWithValue({
+            status: 'error',
+            result: null,
+            message: error.message,
+        });
     }
 });
 

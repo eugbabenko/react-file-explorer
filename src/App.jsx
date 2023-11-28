@@ -4,20 +4,20 @@ import { SearchIcon } from '@chakra-ui/icons';
 import './App.css';
 import Toolbar from './components/Toolbar';
 import TableFiles from './components/TableFiles';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 
-import { useEffect } from 'react';
-import { fetchItemsFromDbx } from './redux/fetchItemsSlice';
+// import { useEffect } from 'react';
+// import { fetchItemsFromDbx } from './redux/fetchItemsSlice';
 import PathBreadcrumb from './components/PathBreadcrumb';
 
 function App() {
-    const dispatch = useDispatch();
-    const path = useSelector((state) => state.pathSlice.path);
-    const update = useSelector((state) => state.updateFilesSlice.update);
+    // const dispatch = useDispatch();
+    // const path = useSelector((state) => state.pathSlice.path);
+    // const update = useSelector((state) => state.updateFilesSlice.update);
 
-    useEffect(() => {
-        dispatch(fetchItemsFromDbx(path));
-    }, [path, update]);
+    // useEffect(() => {
+    //     dispatch(fetchItemsFromDbx(path));
+    // }, [path, update]);
 
     return (
         <>

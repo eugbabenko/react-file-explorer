@@ -25,6 +25,7 @@ const fetchReducer = createSlice({
         builder
             .addCase(fetchItemsFromDbx.pending, (state) => {
                 state.loading = true;
+                state.error = null;
             })
             .addCase(fetchItemsFromDbx.fulfilled, (state, action) => {
                 state.loading = false;

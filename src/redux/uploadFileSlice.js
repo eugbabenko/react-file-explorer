@@ -18,6 +18,7 @@ export const uploadFile = createAsyncThunk('dropbox/uploadFile', async ({ path, 
         return rejectWithValue({
             status: error.status,
             result: error.result,
+            message: error.message,
         });
     }
 });
