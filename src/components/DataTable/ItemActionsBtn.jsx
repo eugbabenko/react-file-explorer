@@ -3,12 +3,28 @@ import { Box, Divider, IconButton, Menu, MenuButton, MenuGroup, MenuItem, MenuLi
 import { AiOutlineMore } from 'react-icons/ai';
 
 import { useDispatch } from 'react-redux';
-import deleteItem from '../redux/actions/deleteItem';
-import { updateFiles } from '../redux/slice/updateItemsSlice';
+import deleteItem from '../../redux/actions/deleteItem';
+import { updateFiles } from '../../redux/slice/updateItemsSlice';
+
+/**
+ * ItemActionsBtn Component
+ *
+ * A component that provides a menu of actions for an item, such as deleting, downloading, and more.
+ *
+ * @component
+ * @param {string} itemPath - The path of the item.
+ * @param {Function} setIsOpen - A function to toggle the open/closed state of the menu. Uses to avoid click on table * item if menu is open.
+ * @returns {JSX.Element} - The rendered ItemActionsBtn component.
+ */
 
 const ItemActionsBtn = ({ itemPath, setIsOpen }) => {
     const dispatch = useDispatch();
     const toast = useToast();
+
+    /**
+     * Handles the deletion of the item.
+     * Displays a toast notification based on the success or failure of the deletion.
+     */
 
     const handleDeleteItem = async () => {
         await dispatch(deleteItem(itemPath)).then((response) => {
@@ -31,6 +47,10 @@ const ItemActionsBtn = ({ itemPath, setIsOpen }) => {
         });
         dispatch(updateFiles());
     };
+
+    /**
+     * Displays a toast notification for actions that are not yet implemented.
+     */
 
     const notImplemented = () => {
         toast({
