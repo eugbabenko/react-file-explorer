@@ -2,6 +2,7 @@ import { HStack } from '@chakra-ui/react';
 
 import CreateFolderBtn from './CreateFolderBtn';
 import UploadFileBtn from './uploadFileBtn';
+import InfoToInspector from './InfoToInspector';
 
 /**
  * Toolbar Component
@@ -20,6 +21,8 @@ const Toolbar = () => {
                 <UploadFileBtn />
                 {/* Button to create folders */}
                 <CreateFolderBtn />
+                {/* Button to show info about test task */}
+                <InfoToInspector />
             </HStack>
         </>
     );
