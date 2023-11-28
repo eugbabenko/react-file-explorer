@@ -1,10 +1,11 @@
 import { Box } from '@chakra-ui/react';
 
-import './App.css';
 import Toolbar from './components/Toolsbar';
 import TableFiles from './components/DataTable';
 import PathBreadcrumb from './components/PathBreadcrumb';
 import SearchBar from './components/SearchBar';
+
+import './App.css';
 
 function App() {
     return (

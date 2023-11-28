@@ -1,3 +1,10 @@
+/**
+ * Format a given date and time to a specific string format.
+ *
+ * @param {string} inputDate - The input date string to be formatted.
+ * @returns {string} - The formatted date and time string.
+ */
+
 const formatDateTime = (inputDate) => {
     const date = new Date(inputDate);
 
