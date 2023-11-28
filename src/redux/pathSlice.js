@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    path: '',
+    path: localStorage.getItem('path') || '',
 };
 
 export const pathSlice = createSlice({

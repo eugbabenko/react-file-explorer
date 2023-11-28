@@ -5,8 +5,10 @@ import { Tbody, Td, Tr, useToast } from '@chakra-ui/react';
 
 import { setPath } from '../redux/pathSlice';
 import { fetchItemsFromDbx } from '../redux/fetchItemsSlice';
+import { getSharingLink } from '../redux/getSharingLinkSlice';
 
 import ItemActionsBtn from './ItemActionsBtn';
+import formatDateTime from '../helpers/formatDate';
 
 const TableItem = () => {
     const { items } = useSelector((state) => state.fetchReducer);
@@ -16,10 +18,15 @@ const TableItem = () => {
     const dispatch = useDispatch();
     const toast = useToast();
 
-    const openItem = (item, event) => {
+    const openItem = async (item, event) => {
         const isTdElement = event.target.tagName.toLowerCase() === 'td';
-        if (isTdElement) {
-            item['.tag'] === 'folder' ? dispatch(setPath(item.path_lower)) : null;
+
+        if (isTdElement && item['.tag'] === 'folder') {
+            dispatch(setPath(item.path_lower));
+            localStorage.setItem('path', item.path_lower);
+        } else {
+            const link = await dispatch(getSharingLink(item.path_lower));
+            window.open(link.payload, '_blank');
         }
     };
 
@@ -43,7 +50,7 @@ const TableItem = () => {
                 <Tbody key={item.name}>
                     <Tr onClick={(event) => openItem(item, event)}>
                         <Td>{item.name}</Td>
-                        <Td>{item?.client_modified ? item?.client_modified : '--'}</Td>
+                        <Td>{item?.client_modified ? formatDateTime(item?.client_modified) : '--'}</Td>
                         <Td>
                             <ItemActionsBtn itemPath={item.path_lower} />
                         </Td>

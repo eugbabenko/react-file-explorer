@@ -12,8 +12,10 @@ const PathBreadcrumb = () => {
 
         if (!link) {
             dispatch(setPath(link));
+            localStorage.setItem('path', link);
         } else if (!isLastItem) {
             dispatch(setPath(`/${link}`));
+            localStorage.setItem('path', `/${link}`);
         }
 
         return null;
