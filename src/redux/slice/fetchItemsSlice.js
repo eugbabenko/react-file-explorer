@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import dbx from '../utils/dropbox-setup';
+import dbx from '../../utils/dropbox-setup';
 
 const initialState = {
     items: [],

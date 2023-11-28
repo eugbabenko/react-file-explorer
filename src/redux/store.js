@@ -1,22 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import fetchReducer from './fetchItemsSlice';
-import createFolderReducer from './createFolderSlice';
-import updateFilesSlice from './updateItemsSlice';
-import deleteItemSlice from './deleteItemSlice';
-import uploadFileSlice from './uploadFileSlice';
+import fetchReducer from './slice/fetchItemsSlice';
+import updateFilesSlice from './slice/updateItemsSlice';
+import dropboxSlice from './slice/dropboxSlice';
 import downloadItemSlice from './downloadItemSlice';
-import getSharingLinkSlice from './getSharingLinkSlice';
-import pathSlice from './pathSlice';
+import pathSlice from './slice/pathSlice';
 
 const reducer = combineReducers({
     fetchReducer,
     pathSlice,
-    createFolderReducer,
+    dropboxSlice,
     updateFilesSlice,
-    deleteItemSlice,
-    uploadFileSlice,
     downloadItemSlice,
-    getSharingLinkSlice,
 });
 
 export const store = configureStore({

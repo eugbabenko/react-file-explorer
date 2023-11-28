@@ -1,6 +1,6 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPath } from '../redux/pathSlice';
+import { setPath } from '../redux/slice/pathSlice';
 
 const PathBreadcrumb = () => {
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const PathBreadcrumb = () => {
     };
 
     return (
-        <Breadcrumb>
+        <Breadcrumb mb={5}>
             {pathArray?.map((link) => (
                 <BreadcrumbItem key={link}>
                     <BreadcrumbLink onClick={() => handleBreadcrumbClick(link)}>{link ? link : 'All files'}</BreadcrumbLink>

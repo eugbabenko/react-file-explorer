@@ -1,13 +1,12 @@
-import { AddIcon, EditIcon, ExternalLinkIcon, RepeatIcon } from '@chakra-ui/icons';
-import { Divider, IconButton, Menu, MenuButton, MenuItem, MenuList, useToast } from '@chakra-ui/react';
+import { CopyIcon, DeleteIcon, DownloadIcon, DragHandleIcon, EditIcon, InfoIcon, LinkIcon } from '@chakra-ui/icons';
+import { Box, Divider, IconButton, Menu, MenuButton, MenuGroup, MenuItem, MenuList, useToast } from '@chakra-ui/react';
 import { AiOutlineMore } from 'react-icons/ai';
 
 import { useDispatch } from 'react-redux';
-import { deleteItem } from '../redux/deleteItemSlice';
-import { getSharingLink } from '../redux/getSharingLinkSlice';
-import { updateFiles } from '../redux/updateItemsSlice';
+import deleteItem from '../redux/actions/deleteItem';
+import { updateFiles } from '../redux/slice/updateItemsSlice';
 
-const ItemActionsBtn = ({ itemPath }) => {
+const ItemActionsBtn = ({ itemPath, setIsOpen }) => {
     const dispatch = useDispatch();
     const toast = useToast();
 
@@ -33,29 +32,41 @@ const ItemActionsBtn = ({ itemPath }) => {
         dispatch(updateFiles());
     };
 
-    const handleDownloadItem = async () => {
-        const link = await dispatch(getSharingLink(itemPath));
-        window.open(link.payload, '_blank');
-        console.log(link);
+    const notImplemented = () => {
+        toast({
+            title: 'Not implemented',
+            description: 'Functionality will be available soon.',
+            status: 'info',
+            duration: 2000,
+            isClosable: true,
+        });
     };
 
     return (
         <Menu>
-            <MenuButton as={IconButton} aria-label="Options" icon={<AiOutlineMore />} variant="outline" />
+            <MenuButton
+                _hover={{ bg: 'blue.100' }}
+                onClick={() => setIsOpen((prev) => !prev)}
+                as={IconButton}
+                aria-label="Options"
+                icon={<AiOutlineMore />}
+                variant="outline"
+            />
             <MenuList>
-                <MenuItem icon={<AddIcon />}>Item Info</MenuItem>
-                <MenuItem icon={<ExternalLinkIcon />}>Share</MenuItem>
-                <MenuItem icon={<RepeatIcon />}>Copy Link</MenuItem>
-                <MenuItem onClick={handleDownloadItem} icon={<EditIcon />}>
-                    Download
-                </MenuItem>
+                <MenuGroup>
+                    <MenuItem onClick={handleDeleteItem} icon={<DeleteIcon />}>
+                        Delete
+                    </MenuItem>
+                </MenuGroup>
                 <Divider />
-                <MenuItem onClick={handleDeleteItem} icon={<AddIcon />}>
-                    Delete
-                </MenuItem>
-                <MenuItem icon={<AddIcon />}>Rename</MenuItem>
-                <MenuItem icon={<AddIcon />}>Move</MenuItem>
-                <MenuItem icon={<AddIcon />}>Copy</MenuItem>
+                <Box onClick={notImplemented}>
+                    <MenuItem icon={<InfoIcon />}>Item Info</MenuItem>
+                    <MenuItem icon={<LinkIcon />}>Copy Link</MenuItem>
+                    <MenuItem icon={<DownloadIcon />}>Download</MenuItem>
+                    <MenuItem icon={<EditIcon />}>Rename</MenuItem>
+                    <MenuItem icon={<DragHandleIcon />}>Move</MenuItem>
+                    <MenuItem icon={<CopyIcon />}>Copy</MenuItem>
+                </Box>
             </MenuList>
         </Menu>
     );
